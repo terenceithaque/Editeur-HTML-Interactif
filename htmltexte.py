@@ -1,19 +1,36 @@
 # HtmlkTexte
 from tkinter import *
 
+liste_widgets = []
+
 class HtmlTexte(Text):
     "Widget pour insérer du texte dans la page web, dérivé de Text"
     def __init__(self, app_maitre):
         super().__init__() # Hériter des attributs du widget Text de tkinter
         self.width = 1000
         self.height = 500
+        self.pos_x = 5
+        self.pos_y = 5
         self.dimensionner(self.width, self.height)
         self.bind("<Button-3>", self.display_menu)
 
+        liste_widgets.append(self)
+
+
     def dimensionner(self, width, height):
         "Dimensionner la taille du widget HtmlTexte"
+        self.width = width
+        self.height = height
         print(f"Dimensionné à {width} x {height}")
-        self.place(width=width, height=height)
+        if liste_widgets == []:
+            self.place(width=self.width, height=self.height, y=self.pos_y)
+
+        else:
+            for widget in liste_widgets:
+                print(widget, widget.winfo_height())
+                self.place(width=self.width, height=self.height, y=self.pos_y + widget.winfo_height()+ 50)
+
+                    
 
     def display_menu(self, event):
         "Afficher un menu contextuel"
@@ -29,3 +46,10 @@ class HtmlTexte(Text):
         menu_dimension.add_command(label="1600x1000", command=lambda:self.dimensionner(1600,1000))
         menu_contextuel.add_cascade(label="Dimension", menu=menu_dimension)
         menu_contextuel.post(event.x_root, event.y_root)
+
+
+
+    def set_police(self):
+        "Changer la police de caractères"
+        print("Police de caractères changée !")
+        return    

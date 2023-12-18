@@ -1,6 +1,7 @@
 # Script principal
 from tkinter import *
 from widgets import *
+from menu_police import *
 
 
 class Application(Tk):
@@ -15,13 +16,17 @@ class Application(Tk):
 
         self.menu_ajouter = Menu(self.barre_menus, tearoff=0) # Ajouter un menu "Ajouter" pour permettre à l'utilisateur d'ajouter des éléments à sa page web
         self.menu_ajouter.add_command(label="Titre de la page...", command=lambda:ajouter_titre(self)) # Permettre à l'utilisateur de spécifier le titre de la page
-        self.menu_ajouter.add_command(label="Image...", command=None) # Permettre à l'utilisateur d'insérer une image
+        self.menu_ajouter.add_command(label="Image...", command=lambda:ouvrir_image(self)) # Permettre à l'utilisateur d'insérer une image
         self.menu_ajouter.add_command(label="Texte...", command = lambda:ajouter_texte(self)) # Permettre à l'utilisateur d'insérer du texte
         self.barre_menus.add_cascade(label="Ajouter", menu=self.menu_ajouter)
+
+        self.polices_ecriture = ("Helvetica Neue", "Liberation Sans", "Liberation Serif", "Linux Biolinum G") # Polices d'écriture que l'utilisateur peut choisir pour le texte.
 
         
 
         self.config(menu=self.barre_menus) # On configure le menu de la fenêtre
+
+        self.menu_police = MenuPolice()
 
 
 
