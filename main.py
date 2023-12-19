@@ -1,5 +1,6 @@
 # Script principal
 from tkinter import *
+from tkinter.font import *
 from widgets import *
 from menu_police import *
 
@@ -20,13 +21,33 @@ class Application(Tk):
         self.menu_ajouter.add_command(label="Texte...", command = lambda:ajouter_texte(self)) # Permettre à l'utilisateur d'insérer du texte
         self.barre_menus.add_cascade(label="Ajouter", menu=self.menu_ajouter)
 
-        self.polices_ecriture = ("Helvetica Neue", "Liberation Sans", "Liberation Serif", "Linux Biolinum G") # Polices d'écriture que l'utilisateur peut choisir pour le texte.
+        self.polices_ecriture = ["Helvetica Neue", "Liberation Sans", "Liberation Serif", "Linux Biolinum G"] # Polices d'écriture que l'utilisateur peut choisir pour le texte.
+
+        var = StringVar()
+        var.set(self.polices_ecriture[0])
+
+        self.menu_polices = OptionMenu(self,var, *self.polices_ecriture, command=lambda option=var.get():self.changer_police_car(option))
+        self.menu_polices.config(text="Helvetica Neue", width=15, font=("Helvetica Neue", 12))    
+
+        self.menu_polices.pack()
+
 
         
 
         self.config(menu=self.barre_menus) # On configure le menu de la fenêtre
 
-        self.menu_police = MenuPolice()
+    def changer_police_car(self, police_choisie):
+        "Changer la police de caractères du texte"
+        self.menu_polices.config(text=police_choisie, font=(police_choisie, 12))
+
+    
+
+
+
+
+
+
+   
 
 
 

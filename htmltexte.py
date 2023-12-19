@@ -1,7 +1,9 @@
 # HtmlkTexte
 from tkinter import *
 
-liste_widgets = []
+liste_widgets = [] # Lister tous les widgets ajoutés à la page web
+
+liste_htmltextes = [] # Pareil que liste_widgets mais seulement pour les widgets HtmlTexte
 
 class HtmlTexte(Text):
     "Widget pour insérer du texte dans la page web, dérivé de Text"
@@ -14,7 +16,7 @@ class HtmlTexte(Text):
         self.dimensionner(self.width, self.height)
         self.bind("<Button-3>", self.display_menu)
 
-        liste_widgets.append(self)
+
 
 
     def dimensionner(self, width, height):

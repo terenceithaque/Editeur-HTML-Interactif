@@ -24,6 +24,10 @@ def ajouter_texte(application_maitre):
     texte = HtmlTexte(application_maitre) # Ajouter un widget "Text" à l'application
 
     liste_widgets.append(texte)
+    liste_htmltextes.append(texte)
+    
+
+
 
 def ajouter_image(app_maitre):
     "Ajouter une image à la page web"   
