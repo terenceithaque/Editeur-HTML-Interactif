@@ -28,9 +28,10 @@ class HtmlTexte(Text):
             self.place(width=self.width, height=self.height, y=self.pos_y)
 
         else:
+            total_height = 0
             for widget in liste_widgets:
-                print(widget, widget.winfo_height())
-                self.place(width=self.width, height=self.height, y=self.pos_y + widget.winfo_height()+ 50)
+
+                self.place(width=self.width, height=self.height, y=widget.winfo_height())
 
                     
 
@@ -51,7 +52,10 @@ class HtmlTexte(Text):
 
 
 
-    def set_police(self):
+    def set_police(self, police):
         "Changer la police de caractères"
         print("Police de caractères changée !")
-        return    
+        self.config(font=(police, 12))
+
+    def get_police(police):
+        return police        

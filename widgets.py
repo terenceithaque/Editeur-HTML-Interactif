@@ -25,7 +25,7 @@ def ajouter_texte(application_maitre):
 
     liste_widgets.append(texte)
     liste_htmltextes.append(texte)
-    
+    texte.set_police("Helvetica Neue")
 
 
 
