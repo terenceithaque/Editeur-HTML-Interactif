@@ -28,10 +28,13 @@ class HtmlTexte(Text):
             self.place(width=self.width, height=self.height, y=self.pos_y)
 
         else:
-            total_height = 0
+            y_pos = self.pos_y
             for widget in liste_widgets:
+                y_pos += widget.winfo_height() + 40
+                print("position y :", y_pos)
 
-                self.place(width=self.width, height=self.height, y=widget.winfo_height())
+
+                self.place(width=self.width, height=self.height, y=y_pos)
 
                     
 

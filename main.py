@@ -8,6 +8,7 @@ from pywebio.output import *
 from pywebio import *
 import webbrowser
 import threading
+from open_file import *
 
 
 class Application(Tk):
@@ -18,6 +19,7 @@ class Application(Tk):
 
         self.barre_menus = Menu(self, tearoff=0) # Ajouter une barre de menus
         self.menu_fichier = Menu(self.barre_menus, tearoff=0) # Ajouter un menu "Fichier"
+        self.menu_fichier.add_command(label="Ouvrir un fichier HTML...", command=lambda:open_htmlfile(self))
         self.barre_menus.add_cascade(label="Fichier", menu=self.menu_fichier)
 
         self.menu_ajouter = Menu(self.barre_menus, tearoff=0) # Ajouter un menu "Ajouter" pour permettre à l'utilisateur d'ajouter des éléments à sa page web

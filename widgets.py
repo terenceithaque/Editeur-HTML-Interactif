@@ -6,14 +6,23 @@ from htmltexte import *
 from image import *
 
 
+
+
 def ajouter_titre(application_maitre):
     "Ajouter un titre à la page web"
+    
     label_titre = Label(application_maitre, text="Titre de la page web (texte qui apparaît dans un onglet de navigateur):")
     label_titre.pack(side="top")
     global titre
+
     titre = Entry(application_maitre)
     titre.pack(fill="both", side="top")
     liste_widgets.append(titre)
+
+    return titre
+
+
+
 
 def obtenir_titre():
     "Obtenir le titre de la page web"
