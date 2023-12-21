@@ -64,7 +64,7 @@ class Application(Tk):
         for widget in liste_widgets: # Pour chaque widget ajouté à la page web
             if(type(widget).__name__) == "HtmlTexte":
                 print("Le widget est un texte")
-                output.put_text(widget.get("1.0", "end")).style(f"font-family:{self.var.get()}")
+                put_text(widget.get("1.0", "end")).style(f"font-family:{self.var.get()}")
 
             if(type(widget).__name__) == "Entry": 
                 session.set_env(title=widget.get())

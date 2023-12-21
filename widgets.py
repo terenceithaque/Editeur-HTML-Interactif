@@ -36,6 +36,8 @@ def ajouter_texte(application_maitre):
     liste_htmltextes.append(texte)
     texte.set_police("Helvetica Neue")
 
+    return texte
+
 
 
 def ajouter_image(app_maitre):
