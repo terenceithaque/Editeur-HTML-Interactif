@@ -24,6 +24,7 @@ def extraire_titre(app_maitre):
         soup = BeautifulSoup(htmldoc, "html.parser") 
         for titre in soup.find_all("title"): # Rechercher toute balise "title" dans le document
             tit = ajouter_titre(application_maitre=app_maitre) # Ajouter un widget titre
+            tit.pack(side="top")
             tit.insert("end", titre.text) # Insérer le titre de la page web au widget titre
 
 
@@ -32,7 +33,9 @@ def extraire_texte(app_maitre):
     with open(html_file, "r", encoding="utf-8") as htmldoc: # Ouvrir le document HTML en lecture 
         soup = BeautifulSoup(htmldoc, "html.parser")          
         for para in soup.find_all("p"): # Rechercher chaque balise représentant un paragraphe
+            print(para.text)
             texte = ajouter_texte(application_maitre=app_maitre)
+            texte.pack(side="bottom", fill="x")
             texte.insert("end", para.text)
 
 

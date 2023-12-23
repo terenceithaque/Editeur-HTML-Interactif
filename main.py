@@ -1,5 +1,6 @@
 # Script principal
 from tkinter import *
+from tkinter import ttk
 from tkinter import messagebox
 from tkinter.font import *
 from widgets import *
@@ -9,6 +10,8 @@ from pywebio import *
 import webbrowser
 import threading
 from open_file import *
+from polices import *
+from save import *
 
 
 class Application(Tk):
@@ -20,20 +23,10 @@ class Application(Tk):
         self.barre_menus = Menu(self, tearoff=0) # Ajouter une barre de menus
         self.menu_fichier = Menu(self.barre_menus, tearoff=0) # Ajouter un menu "Fichier"
         self.menu_fichier.add_command(label="Ouvrir un fichier HTML...", command=lambda:open_htmlfile(self))
+        self.menu_fichier.add_command(label="Enregistrer sous...", command=enregistrer_sous)
         self.barre_menus.add_cascade(label="Fichier", menu=self.menu_fichier)
 
-        self.menu_ajouter = Menu(self.barre_menus, tearoff=0) # Ajouter un menu "Ajouter" pour permettre à l'utilisateur d'ajouter des éléments à sa page web
-        self.menu_ajouter.add_command(label="Titre de la page...", command=lambda:ajouter_titre(self)) # Permettre à l'utilisateur de spécifier le titre de la page
-        self.menu_ajouter.add_command(label="Image...", command=lambda:ouvrir_image(self)) # Permettre à l'utilisateur d'insérer une image
-        self.menu_ajouter.add_command(label="Texte...", command = lambda:ajouter_texte(self)) # Permettre à l'utilisateur d'insérer du texte
-        self.barre_menus.add_cascade(label="Ajouter", menu=self.menu_ajouter)
-
-        self.menu_apercu = Menu(self.barre_menus, tearoff=0)
-        self.menu_apercu.add_command(label="Aperçu dans le navigateur web...", command=self.executer_page)
-        self.barre_menus.add_cascade(label="Aperçu", menu=self.menu_apercu)
-
-        self.polices_ecriture = ["Helvetica Neue", "Liberation Sans", "Liberation Serif", "Linux Biolinum G", "Lucida Console",
-                                 "Malgun Gothic", "Microsoft Sans Serif", "Roboto", "OCR A Extended"] # Polices d'écriture que l'utilisateur peut choisir pour le texte.
+        self.polices_ecriture = polices_ecriture
 
         self.var = StringVar()
         self.var.set(self.polices_ecriture[0])
@@ -43,6 +36,25 @@ class Application(Tk):
 
         self.menu_polices.pack()
 
+        self.canvas = Canvas(self) # Canvas pour afficher les éléments de la page web
+        self.canvas.pack(fill="both", expand=True)
+        self.canvas_scrollbar = ttk.Scrollbar(self.canvas, command = self.canvas.yview)
+        self.canvas["yscrollcommand"] = self.canvas_scrollbar.set
+        self.canvas_scrollbar.pack(side="right", fill="y")
+        self.canvas.pack()
+
+        self.menu_ajouter = Menu(self.barre_menus, tearoff=0) # Ajouter un menu "Ajouter" pour permettre à l'utilisateur d'ajouter des éléments à sa page web
+        self.menu_ajouter.add_command(label="Titre de la page...", command=lambda:ajouter_titre(self.canvas)) # Permettre à l'utilisateur de spécifier le titre de la page
+        self.menu_ajouter.add_command(label="Image...", command=lambda:ouvrir_image(self.canvas)) # Permettre à l'utilisateur d'insérer une image
+        self.menu_ajouter.add_command(label="Texte...", command = lambda:ajouter_texte(self.canvas)) # Permettre à l'utilisateur d'insérer du texte
+        self.barre_menus.add_cascade(label="Ajouter", menu=self.menu_ajouter)
+
+        self.menu_apercu = Menu(self.barre_menus, tearoff=0)
+        self.menu_apercu.add_command(label="Aperçu dans le navigateur web...", command=self.executer_page)
+        self.barre_menus.add_cascade(label="Aperçu", menu=self.menu_apercu)
+
+        
+
 
         
 
@@ -50,6 +62,8 @@ class Application(Tk):
 
         liste_widgets.append(self.barre_menus)
         liste_widgets.append(self.menu_polices)
+
+       
 
         
 
@@ -65,6 +79,7 @@ class Application(Tk):
             if(type(widget).__name__) == "HtmlTexte":
                 print("Le widget est un texte")
                 put_text(widget.get("1.0", "end")).style(f"font-family:{self.var.get()}")
+                
 
             if(type(widget).__name__) == "Entry": 
                 session.set_env(title=widget.get())

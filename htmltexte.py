@@ -1,5 +1,6 @@
 # HtmlkTexte
 from tkinter import *
+from tkinter import ttk
 
 liste_widgets = [] # Lister tous les widgets ajoutés à la page web
 
@@ -14,7 +15,13 @@ class HtmlTexte(Text):
         self.pos_x = 5
         self.pos_y = 5
         self.dimensionner(self.width, self.height)
+        self.scrollbar = ttk.Scrollbar(self, command=self.yview)
+
+        self["yscrollcommand"] = self.scrollbar.set
+        self.scrollbar.pack(side="right", fill="y")
         self.bind("<Button-3>", self.display_menu)
+
+
 
 
 
@@ -28,13 +35,16 @@ class HtmlTexte(Text):
             self.place(width=self.width, height=self.height, y=self.pos_y)
 
         else:
-            y_pos = self.pos_y
             for widget in liste_widgets:
-                y_pos += widget.winfo_height() + 40
-                print("position y :", y_pos)
+                
+                self.pos_y += widget.winfo_height() + 100
+                if widget in liste_htmltextes:
+                    self.pos_y += widget.winfo_height() + 100
+
+                print("position y :", self.pos_y)
 
 
-                self.place(width=self.width, height=self.height, y=y_pos)
+                self.place(width=self.width, height=self.height, y=self.pos_y)
 
                     
 
