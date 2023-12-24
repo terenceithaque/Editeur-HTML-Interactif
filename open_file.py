@@ -4,10 +4,12 @@ from widgets import *
 from bs4 import BeautifulSoup
 import os
 
+html_file = ""
+
 def open_htmlfile(app_maitre):
     "Ouvrir un fichier HTML"
     types = [("Document HTML", "*.html")]
-    global html_file 
+    global html_file
     html_file = filedialog.askopenfilename(title="Sélectionnez un document HTML", filetypes=types, initialdir="C:") # On demande à l'utilisateur de sélectionner le document HTML à ouvrir
     app_maitre.title(os.path.basename(html_file))
     extraire_titre(app_maitre)

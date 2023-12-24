@@ -24,6 +24,7 @@ class Application(Tk):
         self.menu_fichier = Menu(self.barre_menus, tearoff=0) # Ajouter un menu "Fichier"
         self.menu_fichier.add_command(label="Ouvrir un fichier HTML...", command=lambda:open_htmlfile(self))
         self.menu_fichier.add_command(label="Enregistrer sous...", command=enregistrer_sous)
+        self.menu_fichier.add_command(label="Enregistrer", command=enregistrer)
         self.barre_menus.add_cascade(label="Fichier", menu=self.menu_fichier)
 
         self.polices_ecriture = polices_ecriture
